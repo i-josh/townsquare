@@ -44,8 +44,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      _customListTile(
-                          icon: Icons.account_balance, title: "General"),
+                      _customListTile(icon: Icons.dashboard, title: "General"),
                       _customListTile(
                           icon: Icons.sports_football, title: "Sports"),
                       _customListTile(icon: Icons.language, title: "Politics"),
@@ -314,7 +313,7 @@ class Header extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 30),
       height: 70,
-      color: Colors.white,
+      color: AppColors.secondary,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -348,11 +347,14 @@ class Header extends StatelessWidget {
               maxLines: 1,
               textInputType: TextInputType.text,
               label: "search townsquare",
-              prefixIcon: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                child: Icon(
-                  Icons.search,
-                  size: 16,
+              suffixIcon: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: InkWell(
+                  onTap: () {},
+                  child: const Icon(
+                    Icons.search,
+                    size: 16,
+                  ),
                 ),
               ),
             ),

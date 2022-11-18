@@ -29,7 +29,13 @@ class SubmitButton extends StatelessWidget {
         height: 40,
         width: 150,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black,
+              offset: Offset(4, 4),
+              blurRadius: 0,
+            )
+          ],
           color: isLoading ? color.withOpacity(0.7) : color,
         ),
         child: Center(

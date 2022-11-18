@@ -44,7 +44,7 @@ class TextFieldWidget extends StatefulWidget {
 }
 
 class _TextFieldWidgetState extends State<TextFieldWidget> {
-  Color _fillColor = Colors.grey[200]!;
+  Color _fillColor = Colors.white;
   final FocusNode _focusNode = FocusNode();
 
   @override
@@ -54,7 +54,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         if (_focusNode.hasFocus) {
           _fillColor = Colors.white;
         } else {
-          _fillColor = Colors.grey[200]!;
+          _fillColor = Colors.white;
         }
       });
     });
@@ -64,7 +64,13 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(40)),
+      decoration: const BoxDecoration(boxShadow: [
+        BoxShadow(
+          color: Colors.black,
+          blurRadius: 0,
+          offset: Offset(4, 4),
+        ),
+      ]),
       child: TextFormField(
         focusNode: _focusNode,
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -80,7 +86,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         textCapitalization: widget.textCapitalization,
         validator: widget.validator as String? Function(String?)?,
         //cursorColor: AppColors.primary,
-        cursorColor: Colors.grey[500],
+        cursorColor: AppColors.primary,
         keyboardType: widget.textInputType,
         textInputAction: widget.textInputAction,
         decoration: InputDecoration(
@@ -94,27 +100,28 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
           labelText: widget.label,
           labelStyle: const TextStyle(color: Colors.black),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(0.0),
             borderSide: BorderSide(color: Colors.grey[200]!),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            borderRadius: const BorderRadius.all(Radius.circular(0)),
             borderSide: BorderSide(width: 1.5, color: AppColors.primary),
           ),
           disabledBorder: OutlineInputBorder(
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            borderRadius: const BorderRadius.all(Radius.circular(0)),
             borderSide: BorderSide(width: 1.5, color: Colors.grey[200]!),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            borderRadius: const BorderRadius.all(Radius.circular(0)),
             borderSide: BorderSide(width: 1.5, color: Colors.grey[200]!),
           ),
           errorBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
+              borderRadius: BorderRadius.all(Radius.circular(0)),
               borderSide: BorderSide(width: 1.5, color: Colors.red)),
           focusedErrorBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              borderSide: BorderSide(width: 1.5, color: Colors.redAccent)),
+            borderRadius: BorderRadius.all(Radius.circular(0)),
+            borderSide: BorderSide(width: 1.5, color: Colors.redAccent),
+          ),
         ),
       ),
     );
