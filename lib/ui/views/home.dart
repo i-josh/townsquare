@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:townsquare/ui/components/submit_button.dart';
 import 'package:townsquare/ui/components/text_field_widget.dart';
@@ -39,26 +40,25 @@ class _HomeState extends State<Home> {
                       Text(
                         "Forums",
                         style: GoogleFonts.raleway(
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.primary,
-                        ),
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                            fontSize: 16),
                       ),
                       const SizedBox(height: 20),
-                      _customListTile(icon: Icons.dashboard, title: "General"),
+                      _customListTile(icon: "sports.png", title: "Sports"),
                       _customListTile(
-                          icon: Icons.sports_football, title: "Sports"),
-                      _customListTile(icon: Icons.language, title: "Politics"),
+                          icon: "entertainment.png", title: "Entertainment"),
+                      _customListTile(icon: "career.png", title: "Career"),
+                      _customListTile(icon: "romance.png", title: "Romance"),
+                      _customListTile(icon: "business.png", title: "Business"),
                       _customListTile(
-                          icon: Icons.favorite_border, title: "Romance"),
-                      _customListTile(icon: Icons.business, title: "Business"),
-                      _customListTile(icon: Icons.school, title: "Education"),
+                          icon: "education.png", title: "Education"),
+                      _customListTile(icon: "health.png", title: "Health"),
                       _customListTile(
-                          icon: Icons.health_and_safety, title: "Health"),
-                      _customListTile(
-                          icon: Icons.agriculture, title: "Agriculture"),
-                      _customListTile(
-                          icon: Icons.directions_car_sharp,
-                          title: "Automobiles")
+                          icon: "properties.png", title: "Properties"),
+                      _customListTile(icon: "autos.png", title: "Automobiles"),
+                      _customListTile(icon: "travel.png", title: "Travel"),
+                      _customListTile(icon: "tech.png", title: "Tech")
                     ],
                   ),
                 ),
@@ -82,9 +82,9 @@ class _HomeState extends State<Home> {
                           Text(
                             "Trending Gist",
                             style: GoogleFonts.raleway(
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.w600,
-                            ),
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black,
+                                fontSize: 16),
                           ),
                         ],
                       ),
@@ -148,16 +148,23 @@ class _HomeState extends State<Home> {
                                       ),
                                       Container(
                                         decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            color: AppColors.primary),
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          boxShadow: const [
+                                            BoxShadow(
+                                                color: Colors.black,
+                                                blurRadius: 0,
+                                                offset: Offset(3, 3))
+                                          ],
+                                          color: AppColors.secondary,
+                                        ),
                                         child: const Padding(
                                           padding: EdgeInsets.symmetric(
-                                              vertical: 4.0, horizontal: 12),
+                                              vertical: 0, horizontal: 12),
                                           child: Text(
                                             "Politics",
                                             style: TextStyle(
-                                                color: Colors.white,
+                                                color: Colors.black,
                                                 fontSize: 8,
                                                 fontWeight: FontWeight.bold),
                                           ),
@@ -219,12 +226,153 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.all(30),
                     children: [
                       Text(
-                        "Sponsored Posts",
+                        "Sponsored",
                         style: GoogleFonts.raleway(
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.primary,
-                        ),
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                            fontSize: 16),
                       ),
+                      ListView.builder(
+                          itemCount: 3,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 10.0),
+                              child: Container(
+                                height: 250,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                        color: Colors.black, width: 3),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                          color: Colors.black,
+                                          blurRadius: 0,
+                                          offset: Offset(4, 4)),
+                                    ]),
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                      flex: 3,
+                                      child: Stack(
+                                        children: [
+                                          Container(
+                                            decoration: const BoxDecoration(
+                                              image: DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: NetworkImage(
+                                                    "https://static01.nyt.com/images/2022/11/13/world/13ukraine-kherson-top-01/13ukraine-kherson-top-01-mediumSquareAt3X.jpg"),
+                                              ),
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.topRight,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5),
+                                                  boxShadow: const [
+                                                    BoxShadow(
+                                                        color: Colors.black,
+                                                        blurRadius: 0,
+                                                        offset: Offset(3, 3))
+                                                  ],
+                                                  color: AppColors.primary,
+                                                ),
+                                                child: const Padding(
+                                                  padding:
+                                                      EdgeInsets.symmetric(
+                                                          vertical: 0,
+                                                          horizontal: 12),
+                                                  child: Text(
+                                                    "Sponsored",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 8,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 3,
+                                      width: MediaQuery.of(context).size.width,
+                                      color: Colors.black,
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        color: AppColors.primaryLight,
+                                        padding: const EdgeInsets.all(5),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                boxShadow: const [
+                                                  BoxShadow(
+                                                      color: Colors.black,
+                                                      blurRadius: 0,
+                                                      offset: Offset(3, 3))
+                                                ],
+                                                color: AppColors.secondary,
+                                              ),
+                                              child: const Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 0,
+                                                    horizontal: 12),
+                                                child: Text(
+                                                  "Politics",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 8,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(height: 5),
+                                            const Text(
+                                              "Ukraine crisis escalates",
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            const Divider(
+                                              color: Colors.black,
+                                              thickness: 1,
+                                            ),
+                                            Text(
+                                              "text " * 20,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style:
+                                                  const TextStyle(fontSize: 8),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          })
                     ],
                   ),
                 ),
@@ -238,7 +386,7 @@ class _HomeState extends State<Home> {
   }
 
   Widget _customListTile({
-    required IconData icon,
+    required String icon,
     required String title,
   }) {
     return InkWell(
@@ -247,15 +395,19 @@ class _HomeState extends State<Home> {
         height: 40,
         child: Row(
           children: [
-            Icon(
-              icon,
-              size: 16,
-              color: AppColors.primary,
+            Image.network(
+              "assets/images/$icon",
+              height: 20,
+              width: 20,
             ),
             const SizedBox(width: 20),
             Text(
               title,
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.normal,
+                color: AppColors.primary,
+              ),
             ),
           ],
         ),
@@ -284,9 +436,9 @@ class _HomeState extends State<Home> {
               TextSpan(
                 text: "$value ",
                 style: GoogleFonts.sen(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 10,
-                ),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 10,
+                    color: Colors.black),
               ),
               TextSpan(
                 text: " $name",
@@ -313,7 +465,7 @@ class Header extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 30),
       height: 70,
-      color: AppColors.secondary,
+      color: AppColors.secondary.withOpacity(0.5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -325,8 +477,7 @@ class Header extends StatelessWidget {
                   TextSpan(
                     text: "Town",
                     style: GoogleFonts.bebasNeue(
-                      fontSize: 32,
-                    ),
+                        fontSize: 32, color: Colors.black),
                   ),
                   TextSpan(
                     text: "square",
