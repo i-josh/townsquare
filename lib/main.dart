@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:townsquare/ui/values/colors.dart';
 
-import 'ui/views/home.dart';
+import 'ui/views/home/home.dart';
 
 void main() {
   runApp(const MyApp());

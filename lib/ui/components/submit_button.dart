@@ -27,7 +27,7 @@ class SubmitButton extends StatelessWidget {
       onTap: isLoading ? () {} : submit,
       child: Container(
         height: 40,
-        width: 150,
+        width: 100,
         decoration: BoxDecoration(
           boxShadow: const [
             BoxShadow(
@@ -73,7 +73,7 @@ class SubmitButton extends StatelessWidget {
                       label,
                       style: TextStyle(
                         color: textColor,
-                        fontSize: 12,
+                        fontSize: 10,
                         fontWeight:
                             boldText ? FontWeight.bold : FontWeight.normal,
                       ),
