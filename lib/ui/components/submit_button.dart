@@ -27,7 +27,6 @@ class SubmitButton extends StatelessWidget {
       onTap: isLoading ? () {} : submit,
       child: Container(
         height: 40,
-        width: 100,
         decoration: BoxDecoration(
           boxShadow: const [
             BoxShadow(

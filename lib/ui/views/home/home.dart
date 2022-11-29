@@ -30,105 +30,115 @@ class _HomeState extends State<Home> {
               const SizedBox(width: 20),
               Expanded(
                 flex: 1,
-                child: Container(
-                  height: MediaQuery.of(context).size.height,
-                  color: Colors.white,
-                  child: ListView(
-                    padding: const EdgeInsets.all(30),
-                    children: [
-                      Text(
-                        "Forums",
-                        style: GoogleFonts.raleway(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                            fontSize: 16),
-                      ),
-                      const SizedBox(height: 20),
-                      _customListTile(icon: "sports.png", title: "Sports"),
-                      _customListTile(
-                          icon: "entertainment.png", title: "Entertainment"),
-                      _customListTile(icon: "career.png", title: "Career"),
-                      _customListTile(icon: "romance.png", title: "Romance"),
-                      _customListTile(icon: "business.png", title: "Business"),
-                      _customListTile(
-                          icon: "education.png", title: "Education"),
-                      _customListTile(icon: "health.png", title: "Health"),
-                      _customListTile(
-                          icon: "properties.png", title: "Properties"),
-                      _customListTile(icon: "autos.png", title: "Automobiles"),
-                      _customListTile(icon: "travel.png", title: "Travel"),
-                      _customListTile(icon: "tech.png", title: "Tech")
-                    ],
+                child: Material(
+                  elevation: 5,
+                  child: Container(
+                    height: MediaQuery.of(context).size.height,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: ListView(
+                      padding: const EdgeInsets.all(30),
+                      children: [
+                        Text(
+                          "Forums",
+                          style: GoogleFonts.raleway(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                              fontSize: 16),
+                        ),
+                        const SizedBox(height: 20),
+                        _customListTile(icon: "sports.png", title: "Sports"),
+                        _customListTile(icon: "tv.png", title: "Entertainment"),
+                        _customListTile(icon: "career.png", title: "Career"),
+                        _customListTile(icon: "romance.png", title: "Romance"),
+                        _customListTile(
+                            icon: "business.png", title: "Business"),
+                        _customListTile(
+                            icon: "education.png", title: "Education"),
+                        _customListTile(icon: "health.png", title: "Health"),
+                        _customListTile(
+                            icon: "properties.png", title: "Properties"),
+                        _customListTile(
+                            icon: "automobiles.png", title: "Automobiles"),
+                        _customListTile(icon: "travel.png", title: "Travel"),
+                        _customListTile(icon: "tech.png", title: "Tech")
+                      ],
+                    ),
                   ),
                 ),
               ),
               const SizedBox(width: 20),
               Expanded(
                 flex: 2,
-                child: Container(
-                  padding: const EdgeInsets.all(30),
-                  height: MediaQuery.of(context).size.height,
-                  color: Colors.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.local_fire_department_outlined,
-                            color: Colors.deepOrangeAccent,
-                          ),
-                          Text(
-                            "Trending Gist",
-                            style: GoogleFonts.raleway(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black,
-                                fontSize: 16),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(width: 50),
-                      Expanded(
-                        child: RawScrollbar(
-                          thumbColor: AppColors.primary,
-                          trackBorderColor: Colors.transparent,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: 10,
-                            itemBuilder: (context, index) {
-                              return const PostRow();
-                            },
+                child: Material(
+                  elevation: 5,
+                  child: Container(
+                    padding: const EdgeInsets.all(30),
+                    height: MediaQuery.of(context).size.height,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Trending Gist",
+                          style: GoogleFonts.raleway(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                              fontSize: 16),
+                        ),
+                        const SizedBox(width: 50),
+                        Expanded(
+                          child: RawScrollbar(
+                            thumbColor: AppColors.primary,
+                            trackBorderColor: Colors.transparent,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: 10,
+                              itemBuilder: (context, index) {
+                                return PostRow(
+                                  index: index,
+                                );
+                              },
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
               const SizedBox(width: 20),
               Expanded(
                 flex: 1,
-                child: Container(
-                  height: MediaQuery.of(context).size.height,
-                  color: Colors.white,
-                  child: ListView(
-                    padding: const EdgeInsets.all(30),
-                    children: [
-                      Text(
-                        "Sponsored",
-                        style: GoogleFonts.raleway(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                            fontSize: 16),
-                      ),
-                      ListView.builder(
-                        itemCount: 3,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return const SponsoredRow();
-                        },
-                      )
-                    ],
+                child: Material(
+                  elevation: 5,
+                  child: Container(
+                    height: MediaQuery.of(context).size.height,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: ListView(
+                      padding: const EdgeInsets.all(30),
+                      children: [
+                        Text(
+                          "Sponsored",
+                          style: GoogleFonts.raleway(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                              fontSize: 16),
+                        ),
+                        ListView.builder(
+                          itemCount: 3,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return const SponsoredRow();
+                          },
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

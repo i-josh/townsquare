@@ -1,7 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:townsquare/core/di/service_locator.dart';
 
+import '../../../core/app/app.router.dart';
+import '../../components/logo.dart';
 import '../../components/submit_button.dart';
 import '../../components/text_field_widget.dart';
 import '../../values/colors.dart';
@@ -20,27 +23,7 @@ class Header extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          InkWell(
-            onTap: () {},
-            child: RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: "Town",
-                    style: GoogleFonts.bebasNeue(
-                        fontSize: 30, color: Colors.black),
-                  ),
-                  TextSpan(
-                    text: "square",
-                    style: GoogleFonts.bebasNeue(
-                      fontSize: 30,
-                      color: AppColors.primary,
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
+          InkWell(onTap: () {}, child: const Logo()),
           SizedBox(
             width: 600,
             height: 40,
@@ -61,12 +44,26 @@ class Header extends StatelessWidget {
               ),
             ),
           ),
-          SubmitButton(
-            isLoading: false,
-            boldText: true,
-            label: "Sign Up",
-            submit: () {},
-            color: AppColors.primary,
+          Row(
+            children: [
+              const Text(
+                "Advertise",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              ),
+              const SizedBox(width: 20),
+              SizedBox(
+                width: 100,
+                child: SubmitButton(
+                  isLoading: false,
+                  boldText: true,
+                  label: "Sign In",
+                  submit: () {
+                    locator<NavigationService>().navigateTo(Routes.signIn);
+                  },
+                  color: AppColors.primary,
+                ),
+              ),
+            ],
           )
         ],
       ),

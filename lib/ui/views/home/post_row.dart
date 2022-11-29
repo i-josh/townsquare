@@ -5,7 +5,10 @@ import '../../components/profile_picture.dart';
 import '../../values/colors.dart';
 
 class PostRow extends StatelessWidget {
+  final int index;
+
   const PostRow({
+    required this.index,
     Key? key,
   }) : super(key: key);
 
@@ -59,7 +62,7 @@ class PostRow extends StatelessWidget {
                   BoxShadow(
                       color: Colors.black, blurRadius: 0, offset: Offset(3, 3))
                 ],
-                color: AppColors.secondary,
+                color: index.isEven ? Colors.greenAccent : AppColors.secondary,
               ),
               child: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 0, horizontal: 12),
@@ -72,13 +75,16 @@ class PostRow extends StatelessWidget {
                 ),
               ),
             ),
-            Text(
-              "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layou",
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: GoogleFonts.poppins(
-                fontSize: 12,
-                fontWeight: FontWeight.normal,
+            InkWell(
+              onTap: () {},
+              child: Text(
+                "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layou",
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.poppins(
+                  fontSize: 12,
+                  fontWeight: FontWeight.normal,
+                ),
               ),
             ),
             Column(

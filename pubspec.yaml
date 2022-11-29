@@ -11,11 +11,21 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^3.0.1
   flutter_svg: ^1.1.6
+  stacked: ^3.0.0
+  stacked_services: ^0.9.8
+  get_it: ^7.2.0
+  injectable: ^1.5.4
+  logger: ^1.1.0
+  dio: ^4.0.6
+  flutter_screenutil: ^5.6.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  build_runner: ^2.3.2
+  stacked_generator:
+  injectable_generator:
 
 flutter:
   uses-material-design: true
