@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:townsquare/core/di/service_locator.dart';
@@ -25,7 +26,7 @@ class Header extends StatelessWidget {
         children: [
           InkWell(onTap: () {}, child: const Logo()),
           SizedBox(
-            width: 600,
+            width: 200.w,
             height: 40,
             child: TextFieldWidget(
               controller: TextEditingController(),
@@ -46,9 +47,28 @@ class Header extends StatelessWidget {
           ),
           Row(
             children: [
-              const Text(
-                "Advertise",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              Container(
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                    color: AppColors.secondary,
+                    shape: BoxShape.circle,
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black,
+                        blurRadius: 0,
+                        offset: Offset(4, 4),
+                      ),
+                    ]),
+                child: Center(
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.campaign_sharp,
+                    ),
+                    tooltip: "Advertise",
+                  ),
+                ),
               ),
               const SizedBox(width: 20),
               SizedBox(

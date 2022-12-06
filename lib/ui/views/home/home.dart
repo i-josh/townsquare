@@ -23,6 +23,7 @@ class _HomeState extends State<Home> {
       ),
       backgroundColor: Colors.grey[100],
       body: ListView(
+        // scrollDirection: Axis.horizontal,
         children: [
           const SizedBox(height: 20),
           Row(
@@ -52,6 +53,8 @@ class _HomeState extends State<Home> {
                         _customListTile(icon: "tv.png", title: "Entertainment"),
                         _customListTile(icon: "career.png", title: "Career"),
                         _customListTile(icon: "romance.png", title: "Romance"),
+                        _customListTile(
+                            icon: "politics.png", title: "Politics"),
                         _customListTile(
                             icon: "business.png", title: "Business"),
                         _customListTile(

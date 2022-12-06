@@ -1,8 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:townsquare/core/app/app.router.dart';
 import 'package:townsquare/core/di/service_locator.dart';
 import 'package:townsquare/ui/components/submit_button.dart';
 import 'package:townsquare/ui/components/text_field_widget.dart';
@@ -10,14 +8,14 @@ import 'package:townsquare/ui/components/text_field_widget.dart';
 import '../../../components/logo.dart';
 import '../../../values/colors.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
+class SignUp extends StatefulWidget {
+  const SignUp({Key? key}) : super(key: key);
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,10 +31,16 @@ class _SignInState extends State<SignIn> {
                 const Logo(),
                 const SizedBox(height: 50),
                 const SelectableText(
-                  "Sign in to townsquare",
+                  "Sign up to townsquare",
                   style: TextStyle(fontSize: 18),
                 ),
                 const SizedBox(height: 30),
+                TextFieldWidget(
+                  controller: TextEditingController(),
+                  textInputType: TextInputType.text,
+                  label: "Username",
+                ),
+                const SizedBox(height: 20),
                 TextFieldWidget(
                   controller: TextEditingController(),
                   textInputType: TextInputType.text,
@@ -51,21 +55,19 @@ class _SignInState extends State<SignIn> {
                 const SizedBox(height: 30),
                 SubmitButton(
                   isLoading: false,
-                  label: "Sign In",
+                  label: "Sign Up",
                   submit: () {},
                   color: AppColors.primary,
                 ),
                 const SizedBox(height: 50),
                 RichText(
                   text: TextSpan(children: [
-                    const TextSpan(text: "Don't have an account? "),
                     TextSpan(
-                      text: " Sign up",
+                      text: "Back to Sign in",
                       style: TextStyle(color: AppColors.primary),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          locator<NavigationService>()
-                              .navigateTo(Routes.signUp);
+                          locator<NavigationService>().back();
                         },
                     )
                   ]),
