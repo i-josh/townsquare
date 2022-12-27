@@ -57,6 +57,7 @@ class SubmitButton extends StatelessWidget {
                           label,
                           style: TextStyle(
                             color: textColor,
+                            fontSize: 10,
                             fontWeight:
                                 boldText ? FontWeight.bold : FontWeight.normal,
                           ),
