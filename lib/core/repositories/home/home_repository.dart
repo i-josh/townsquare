@@ -16,4 +16,20 @@ class HomeRepository implements IHomeRepository {
 
     return response;
   }
+
+  @override
+  Future<ApiResponse> getComments(String id) async {
+    ApiResponse response =
+        await api.call(method: HttpMethod.get, endpoint: "posts/comments/$id");
+
+    return response;
+  }
+
+  @override
+  Future<ApiResponse> incrementViews(String id) async{
+    ApiResponse response =
+        await api.call(method: HttpMethod.get, endpoint: "posts/updateViews/$id");
+
+    return response;
+  }
 }

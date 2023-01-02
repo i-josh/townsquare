@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../values/colors.dart';
 
@@ -26,12 +27,15 @@ class CustomTile extends StatelessWidget {
               width: 20,
             ),
             const SizedBox(width: 20),
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.normal,
-                color: AppColors.primary,
+            Expanded(
+              child: Text(
+                title,
+                style: TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.normal,
+                  color: AppColors.primary,
+                ),
               ),
             ),
           ],

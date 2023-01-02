@@ -1,6 +1,7 @@
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:townsquare/core/app/app.logger.dart';
+import 'package:townsquare/core/models/comment.dart';
 import 'package:townsquare/core/models/post.dart';
 import 'package:townsquare/core/network/api_response.dart';
 import 'package:townsquare/core/repositories/home/home_repository.dart';
@@ -15,7 +16,13 @@ class HomeViewModel extends BaseViewModel {
   final snackBar = locator<SnackbarService>();
 
   List<Post>? posts;
+  List<Comment>? comments;
   final log = getLogger("HomeViewModel");
+
+  void disposeData() {
+    comments = null;
+    notifyListeners();
+  }
 
   void initialize() async {
     // await locator<LocalStorage>().delete(key: LocalStorageDir.authToken);
@@ -48,6 +55,34 @@ class HomeViewModel extends BaseViewModel {
         log.e(apiResponse.data);
         snackBar.showSnackbar(message: apiResponse.data["message"]);
       }
+    } catch (e) {
+      log.e(e);
+    }
+  }
+
+  void getPostComments(Post post) async {
+    try {
+      ApiResponse apiResponse = await _repo.getComments(post.sId!);
+      if (apiResponse.statusCode == 200) {
+        List<Comment> newData = [];
+        List<dynamic> responseData = apiResponse.data["comments"];
+        for (var element in responseData) {
+          newData.add(Comment.fromJson(Map<String, dynamic>.from(element)));
+        }
+        comments = newData;
+        notifyListeners();
+      } else {
+        log.e(apiResponse.data);
+        snackBar.showSnackbar(message: apiResponse.data["message"]);
+      }
+    } catch (e) {
+      log.e(e);
+    }
+  }
+
+  void incrementViews(Post post) async {
+    try {
+      await _repo.incrementViews(post.sId!);
     } catch (e) {
       log.e(e);
     }

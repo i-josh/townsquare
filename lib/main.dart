@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.purple,
-          textTheme: GoogleFonts.farroTextTheme(),
+          textTheme: GoogleFonts.senTextTheme(),
           highlightColor: AppColors.primary,
         ),
         onGenerateRoute: StackedRouter().onGenerateRoute,

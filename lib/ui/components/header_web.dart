@@ -4,14 +4,14 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:townsquare/core/di/service_locator.dart';
 import 'package:townsquare/globals.dart';
 import 'package:townsquare/ui/components/profile_picture.dart';
-import '../../../../core/app/app.router.dart';
-import '../../../components/logo.dart';
-import '../../../components/submit_button.dart';
-import '../../../components/text_field_widget.dart';
-import '../../../values/colors.dart';
+import '../../core/app/app.router.dart';
+import 'logo.dart';
+import 'submit_button.dart';
+import 'text_field_widget.dart';
+import '../values/colors.dart';
 
-class Header extends StatelessWidget {
-  const Header({
+class HeaderWeb extends StatelessWidget {
+  const HeaderWeb({
     Key? key,
   }) : super(key: key);
 

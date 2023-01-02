@@ -21,7 +21,8 @@ class PostRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        locator<NavigationService>().navigateTo(Routes.postDetail);
+        locator<NavigationService>().navigateTo(Routes.postDetail,
+            arguments: PostDetailArguments(post: post));
       },
       child: SizedBox(
         height: 150,
@@ -92,7 +93,7 @@ class PostRow extends StatelessWidget {
                 post.title ?? "",
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.poppins(
+                style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.normal,
                 ),
@@ -106,11 +107,11 @@ class PostRow extends StatelessWidget {
                           icon: Icons.thumb_up_outlined,
                           value: post.likes!.length.toString(),
                           name: "likes"),
-                      const SizedBox(width: 20),
-                      _postAction(
-                          icon: Icons.messenger_outline,
-                          value: "100",
-                          name: "comments"),
+                      // const SizedBox(width: 20),
+                      // _postAction(
+                      //     icon: Icons.messenger_outline,
+                      //     value: "100",
+                      //     name: "comments"),
                       const SizedBox(width: 20),
                       _postAction(
                           icon: Icons.visibility,
@@ -145,14 +146,14 @@ class PostRow extends StatelessWidget {
             children: [
               TextSpan(
                 text: "$value ",
-                style: GoogleFonts.sen(
+                style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 10,
                     color: Colors.black),
               ),
               TextSpan(
                 text: " $name",
-                style: GoogleFonts.sen(
+                style: const TextStyle(
                   fontSize: 10,
                   color: Colors.grey,
                 ),
