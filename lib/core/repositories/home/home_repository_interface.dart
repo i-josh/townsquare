@@ -6,4 +6,6 @@ abstract class IHomeRepository {
   Future<ApiResponse> getComments(String id);
 
   Future<ApiResponse> incrementViews(String id);
+
+  Future<ApiResponse> addComment(Map<String, dynamic> request);
 }

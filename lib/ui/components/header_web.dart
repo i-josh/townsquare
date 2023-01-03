@@ -24,7 +24,11 @@ class HeaderWeb extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          InkWell(onTap: () {}, child: const Logo()),
+          InkWell(
+              onTap: () {
+                locator<NavigationService>().replaceWith(Routes.home);
+              },
+              child: const Logo()),
           SizedBox(
             width: 150.w,
             height: 40,

@@ -1,14 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:townsquare/core/app/app.logger.dart';
 import 'package:townsquare/core/app/app.router.dart';
 import 'package:townsquare/core/di/service_locator.dart';
+import 'package:townsquare/core/models/user.dart';
 import 'package:townsquare/core/network/api_response.dart';
 import 'package:townsquare/core/repositories/auth/auth_repository.dart';
 import 'package:townsquare/core/utils/extensions.dart';
 import 'package:townsquare/core/utils/local_store_dir.dart';
 import 'package:townsquare/core/utils/local_stotage.dart';
+import 'package:townsquare/globals.dart';
 
 class SignInViewModel extends BaseViewModel {
   final _repo = locator<AuthRepository>();
@@ -38,6 +42,17 @@ class SignInViewModel extends BaseViewModel {
             type: StorageType.string,
             value: apiResponse.data["token"],
           );
+
+          User user = User.fromJson(
+              Map<String, dynamic>.from(apiResponse.data["user"]));
+
+          locator<LocalStorage>().save(
+            key: LocalStorageDir.authUser,
+            type: StorageType.string,
+            value: jsonEncode(user),
+          );
+
+          userValueNotifier.value = user;
         } else {
           log.e(apiResponse.data);
           if (apiResponse.data["message"] != null) {

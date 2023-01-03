@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 import 'package:townsquare/core/models/comment.dart';
 import 'package:townsquare/core/models/post.dart';
+import 'package:townsquare/globals.dart';
 import 'package:townsquare/ui/components/header_web.dart';
 import 'package:townsquare/ui/components/profile_picture.dart';
 import 'package:timeago/timeago.dart' as timeAgo;
+import 'package:townsquare/ui/components/submit_button.dart';
+import 'package:townsquare/ui/components/text_field_widget.dart';
 import 'package:townsquare/ui/values/colors.dart';
 import 'package:townsquare/ui/views/home/home_viewmodel.dart';
 import 'package:townsquare/ui/views/home/widgets/comment_row.dart';
@@ -109,10 +111,9 @@ class PostDetailWeb extends StatelessWidget {
                         const SizedBox(
                           height: 20,
                         ),
-                        Text(
+                        SelectableText(
                           post.title ?? "",
                           maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
@@ -121,7 +122,7 @@ class PostDetailWeb extends StatelessWidget {
                         const SizedBox(
                           height: 20,
                         ),
-                        Text(
+                        SelectableText(
                           post.body ?? "",
                           style: const TextStyle(
                             fontSize: 12,
@@ -136,20 +137,41 @@ class PostDetailWeb extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                _postAction(
-                                    icon: Icons.thumb_up_outlined,
+                                InkWell(
+                                  onTap: () {},
+                                  child: _postAction(
+                                    icon: model.hasLikedPost(post)
+                                        ? Icons.thumb_up
+                                        : Icons.thumb_up_outlined,
                                     value: post.likes!.length.toString(),
-                                    name: "likes"),
+                                    name: "likes",
+                                    color: model.hasLikedPost(post)
+                                        ? Colors.blue
+                                        : Colors.black,
+                                  ),
+                                ),
                                 const SizedBox(width: 20),
                                 // _postAction(
                                 //     icon: Icons.messenger_outline,
                                 //     value: "${model.comments?.length ?? ""}",
                                 //     name: "comments"),
-                                const SizedBox(width: 20),
+                                // const SizedBox(width: 20),
                                 _postAction(
                                     icon: Icons.visibility,
                                     value: post.views?.toString() ?? "",
                                     name: "views"),
+                                const SizedBox(width: 20),
+                                tokenValueNotifier.value != null
+                                    ? InkWell(
+                                        onTap: () {
+                                          model.toggleShowReplying();
+                                        },
+                                        child: _postAction(
+                                            icon: Icons.reply,
+                                            value: "",
+                                            name: "reply"),
+                                      )
+                                    : const SizedBox(),
                               ],
                             ),
                             const Divider(),
@@ -159,6 +181,35 @@ class PostDetailWeb extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
+                  model.showReplying
+                      ? SizedBox(
+                          width: MediaQuery.of(context).size.width / 2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              TextFieldWidget(
+                                  minLines: 4,
+                                  maxLines: 4,
+                                  controller: model.commentController,
+                                  textInputType: TextInputType.text,
+                                  label: "Write something..."),
+                              const SizedBox(height: 10),
+                              SizedBox(
+                                width: 100,
+                                child: SubmitButton(
+                                  isLoading: model.isReplyingToPost,
+                                  label: "Reply",
+                                  submit: () => model.addComment(post),
+                                  color: AppColors.primary,
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      : const SizedBox(),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Container(
                     padding: const EdgeInsets.all(20),
                     height: MediaQuery.of(context).size.height,
@@ -203,11 +254,13 @@ class PostDetailWeb extends StatelessWidget {
     required IconData icon,
     required String value,
     required String name,
+    Color? color,
   }) {
     return Row(
       children: [
         Icon(
           icon,
+          color: color,
           size: 15,
         ),
         const SizedBox(width: 5),

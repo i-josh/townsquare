@@ -28,9 +28,9 @@ class CommentRow extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "@username",
-                          style: TextStyle(
+                        Text(
+                          "@${comment.user?[0].username ?? ""}",
+                          style: const TextStyle(
                               fontSize: 10, fontWeight: FontWeight.bold),
                         ),
                         Text(
@@ -67,7 +67,9 @@ class CommentRow extends StatelessWidget {
               Row(
                 children: [
                   _postAction(
-                      icon: Icons.thumb_up_outlined, value: "3", name: "likes"),
+                      icon: Icons.thumb_up_outlined,
+                      value: "${comment.likes?.length ?? 0}",
+                      name: "likes"),
                   // const SizedBox(width: 20),
                   // _postAction(
                   //     icon: Icons.messenger_outline,

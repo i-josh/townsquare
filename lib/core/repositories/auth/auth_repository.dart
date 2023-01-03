@@ -16,4 +16,15 @@ class AuthRepository extends IAuthRepository {
 
     return response;
   }
+
+  @override
+  Future<ApiResponse> signUp(Map<String, dynamic> request) async {
+    ApiResponse response = await api.call(
+      method: HttpMethod.post,
+      endpoint: "users/register",
+      reqBody: request,
+    );
+
+    return response;
+  }
 }

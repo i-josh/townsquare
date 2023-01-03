@@ -26,9 +26,20 @@ class HomeRepository implements IHomeRepository {
   }
 
   @override
-  Future<ApiResponse> incrementViews(String id) async{
-    ApiResponse response =
-        await api.call(method: HttpMethod.get, endpoint: "posts/updateViews/$id");
+  Future<ApiResponse> incrementViews(String id) async {
+    ApiResponse response = await api.call(
+        method: HttpMethod.get, endpoint: "posts/updateViews/$id");
+
+    return response;
+  }
+
+  @override
+  Future<ApiResponse> addComment(Map<String, dynamic> request) async {
+    ApiResponse response = await api.call(
+      method: HttpMethod.post,
+      endpoint: "posts/comment",
+      reqBody: request,
+    );
 
     return response;
   }
