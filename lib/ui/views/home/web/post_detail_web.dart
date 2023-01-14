@@ -12,17 +12,22 @@ import 'package:townsquare/ui/values/colors.dart';
 import 'package:townsquare/ui/views/home/home_viewmodel.dart';
 import 'package:townsquare/ui/views/home/widgets/comment_row.dart';
 
-class PostDetailWeb extends StatelessWidget {
+class PostDetailWeb extends StatefulWidget {
   final Post post;
 
   const PostDetailWeb({required this.post, Key? key}) : super(key: key);
 
   @override
+  State<PostDetailWeb> createState() => _PostDetailWebState();
+}
+
+class _PostDetailWebState extends State<PostDetailWeb> {
+  @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
       onModelReady: (model) {
-        model.getPostComments(post);
-        model.incrementViews(post);
+        model.getPostComments(widget.post.sId!);
+        model.incrementViews(widget.post);
       },
       onDispose: (model) {
         model.disposeData();
@@ -60,14 +65,14 @@ class PostDetailWeb extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "@${post.user![0].username}",
+                                      "@${widget.post.user![0].username}",
                                       style: const TextStyle(
                                           fontSize: 10,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
-                                      timeAgo.format(
-                                          DateTime.parse(post.createdAt!)),
+                                      timeAgo.format(DateTime.parse(
+                                          widget.post.createdAt!)),
                                       style: const TextStyle(
                                           fontSize: 10, color: Colors.grey),
                                     )
@@ -100,7 +105,7 @@ class PostDetailWeb extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 0, horizontal: 12),
                             child: Text(
-                              post.category ?? "",
+                              widget.post.category ?? "",
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 8,
@@ -112,7 +117,7 @@ class PostDetailWeb extends StatelessWidget {
                           height: 20,
                         ),
                         SelectableText(
-                          post.title ?? "",
+                          widget.post.title ?? "",
                           maxLines: 2,
                           style: const TextStyle(
                             fontSize: 12,
@@ -123,7 +128,7 @@ class PostDetailWeb extends StatelessWidget {
                           height: 20,
                         ),
                         SelectableText(
-                          post.body ?? "",
+                          widget.post.body ?? "",
                           style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.normal,
@@ -140,12 +145,12 @@ class PostDetailWeb extends StatelessWidget {
                                 InkWell(
                                   onTap: () {},
                                   child: _postAction(
-                                    icon: model.hasLikedPost(post)
+                                    icon: model.hasLikedPost(widget.post)
                                         ? Icons.thumb_up
                                         : Icons.thumb_up_outlined,
-                                    value: post.likes!.length.toString(),
+                                    value: widget.post.likes!.length.toString(),
                                     name: "likes",
-                                    color: model.hasLikedPost(post)
+                                    color: model.hasLikedPost(widget.post)
                                         ? Colors.blue
                                         : Colors.black,
                                   ),
@@ -158,7 +163,7 @@ class PostDetailWeb extends StatelessWidget {
                                 // const SizedBox(width: 20),
                                 _postAction(
                                     icon: Icons.visibility,
-                                    value: post.views?.toString() ?? "",
+                                    value: widget.post.views?.toString() ?? "",
                                     name: "views"),
                                 const SizedBox(width: 20),
                                 tokenValueNotifier.value != null
@@ -199,7 +204,7 @@ class PostDetailWeb extends StatelessWidget {
                                 child: SubmitButton(
                                   isLoading: model.isReplyingToPost,
                                   label: "Reply",
-                                  submit: () => model.addComment(post),
+                                  submit: () => model.addComment(widget.post),
                                   color: AppColors.primary,
                                 ),
                               )
@@ -218,6 +223,7 @@ class PostDetailWeb extends StatelessWidget {
                       color: Colors.white,
                     ),
                     child: ListView(
+                      // physics: const NeverScrollableScrollPhysics(),
                       children: [
                         Center(
                           child: Text(
@@ -232,12 +238,14 @@ class PostDetailWeb extends StatelessWidget {
                         model.comments == null
                             ? const SizedBox()
                             : ListView.builder(
+                                // physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: model.comments!.length,
                                 itemBuilder: (context, index) {
                                   Comment comment = model.comments![index];
                                   return CommentRow(comment: comment);
-                                })
+                                }),
+                        const SizedBox(height: 50),
                       ],
                     ),
                   ),

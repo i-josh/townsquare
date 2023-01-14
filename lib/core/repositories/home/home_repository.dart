@@ -43,4 +43,14 @@ class HomeRepository implements IHomeRepository {
 
     return response;
   }
+
+  @override
+  Future<ApiResponse> getPostsByCategory(String category) async {
+    ApiResponse response = await api.call(
+      method: HttpMethod.get,
+      endpoint: "posts/category/$category",
+    );
+
+    return response;
+  }
 }

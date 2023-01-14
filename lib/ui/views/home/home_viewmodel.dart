@@ -23,6 +23,9 @@ class HomeViewModel extends BaseViewModel {
   bool showReplying = false;
   bool isReplyingToPost = false;
   final commentController = TextEditingController();
+  final replyCommentController = TextEditingController();
+  bool commentIsReplying = false;
+  bool commentReplyingLoading = false;
 
   List<Post>? posts;
   List<Comment>? comments;
@@ -61,6 +64,11 @@ class HomeViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  void toggleShowCommentReplying() {
+    commentIsReplying = !commentIsReplying;
+    notifyListeners();
+  }
+
   void getPosts() async {
     try {
       ApiResponse apiResponse = await _repo.getPosts();
@@ -81,9 +89,39 @@ class HomeViewModel extends BaseViewModel {
     }
   }
 
-  Future<void> getPostComments(Post post) async {
+  void addReply(Comment comment) async {
+    log.i("something de happen o ${replyCommentController.text}");
+    if (replyCommentController.text.isEmpty) {
+      return;
+    }
+    if (!commentReplyingLoading) {
+      commentReplyingLoading = true;
+      notifyListeners();
+
+      try {
+        ApiResponse apiResponse = await _repo.addComment({
+          "postId": comment.postId,
+          "comment": replyCommentController.text,
+          "reply": comment.comment,
+          "replyUser": comment.userId
+        });
+
+        if (apiResponse.statusCode == 201) {
+          getPostComments(comment.postId!);
+        }
+      } catch (e) {
+        log.e(e);
+      }
+
+      commentIsReplying = false;
+      commentReplyingLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> getPostComments(String postId) async {
     try {
-      ApiResponse apiResponse = await _repo.getComments(post.sId!);
+      ApiResponse apiResponse = await _repo.getComments(postId);
       if (apiResponse.statusCode == 200) {
         List<Comment> newData = [];
         List<dynamic> responseData = apiResponse.data["comments"];
@@ -122,7 +160,7 @@ class HomeViewModel extends BaseViewModel {
       });
 
       if (apiResponse.statusCode == 201) {
-        await getPostComments(post);
+        await getPostComments(post.sId!);
       } else {
         log.e(apiResponse.data);
         snackBar.showSnackbar(message: apiResponse.data["message"]);

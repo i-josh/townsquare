@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:townsquare/core/app/app.router.dart';
+import 'package:townsquare/core/di/service_locator.dart';
 
 import '../../../values/colors.dart';
 
@@ -16,7 +19,10 @@ class CustomTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        locator<NavigationService>().navigateTo(Routes.forum,
+            arguments: ForumArguments(category: title));
+      },
       child: SizedBox(
         height: 40,
         child: Row(

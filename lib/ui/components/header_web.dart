@@ -67,22 +67,11 @@ class HeaderWeb extends StatelessWidget {
                         ),
                       )
                     : Row(
-                        children: [
-                          const ProfilePicture(),
-                          const SizedBox(width: 10),
-                          const Icon(Icons.notifications),
-                          const SizedBox(width: 10),
-                          SizedBox(
-                            width: 100,
-                            child: SubmitButton(
-                              isLoading: false,
-                              boldText: true,
-                              icon: Icons.post_add,
-                              label: "Add Post",
-                              submit: () {},
-                              color: AppColors.primary,
-                            ),
-                          ),
+                        children: const [
+                          ProfilePicture(),
+                          SizedBox(width: 10),
+                          Icon(Icons.notifications),
+                          SizedBox(width: 10),
                         ],
                       )),
           ),

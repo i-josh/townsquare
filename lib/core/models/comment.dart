@@ -1,12 +1,13 @@
-import 'package:townsquare/core/models/user.dart';
-
 import 'like.dart';
+import 'user.dart';
 
 class Comment {
   String? sId;
   String? userId;
   String? postId;
   String? comment;
+  String? reply;
+  List<User>? replyUser;
   String? createdAt;
   String? updatedAt;
   int? iV;
@@ -18,6 +19,8 @@ class Comment {
       this.userId,
       this.postId,
       this.comment,
+      this.reply,
+      this.replyUser,
       this.createdAt,
       this.updatedAt,
       this.iV,
@@ -29,6 +32,13 @@ class Comment {
     userId = json['userId'];
     postId = json['postId'];
     comment = json['comment'];
+    reply = json['reply'];
+    if (json['replyUser'] != null) {
+      replyUser = <User>[];
+      json['replyUser'].forEach((v) {
+        replyUser!.add(User.fromJson(v));
+      });
+    }
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
@@ -52,6 +62,10 @@ class Comment {
     data['userId'] = userId;
     data['postId'] = postId;
     data['comment'] = comment;
+    data['reply'] = reply;
+    if (replyUser != null) {
+      data['replyUser'] = replyUser!.map((v) => v.toJson()).toList();
+    }
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
     data['__v'] = iV;

@@ -13,6 +13,6 @@ class PostDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ResponsiveLayout(
-        mobile: PostDetailMobile(), web: PostDetailWeb(post: post));
+        mobile: PostDetailMobile(post: post), web: PostDetailWeb(post: post));
   }
 }

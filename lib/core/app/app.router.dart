@@ -5,13 +5,14 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i7;
+import 'package:flutter/material.dart' as _i8;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i8;
-import 'package:townsquare/core/models/post.dart' as _i6;
+import 'package:stacked_services/stacked_services.dart' as _i9;
+import 'package:townsquare/core/models/post.dart' as _i7;
 import 'package:townsquare/ui/views/auth/sign_in/sign_in.dart' as _i3;
 import 'package:townsquare/ui/views/auth/sign_up/sign_up.dart' as _i4;
+import 'package:townsquare/ui/views/forum/forum.dart' as _i6;
 import 'package:townsquare/ui/views/home/home.dart' as _i2;
 import 'package:townsquare/ui/views/home/post_detail.dart' as _i5;
 
@@ -24,11 +25,14 @@ class Routes {
 
   static const postDetail = '/post-detail';
 
+  static const forum = '/Forum';
+
   static const all = <String>{
     home,
     signIn,
     signUp,
     postDetail,
+    forum,
   };
 }
 
@@ -49,6 +53,10 @@ class StackedRouter extends _i1.RouterBase {
     _i1.RouteDef(
       Routes.postDetail,
       page: _i5.PostDetail,
+    ),
+    _i1.RouteDef(
+      Routes.forum,
+      page: _i6.Forum,
     ),
   ];
 
@@ -78,6 +86,13 @@ class StackedRouter extends _i1.RouterBase {
         settings: data,
       );
     },
+    _i6.Forum: (data) {
+      final args = data.getArgs<ForumArguments>(nullOk: false);
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => _i6.Forum(category: args.category, key: args.key),
+        settings: data,
+      );
+    },
   };
 
   @override
@@ -92,12 +107,23 @@ class PostDetailArguments {
     this.key,
   });
 
-  final _i6.Post post;
+  final _i7.Post post;
 
-  final _i7.Key? key;
+  final _i8.Key? key;
 }
 
-extension NavigatorStateExtension on _i8.NavigationService {
+class ForumArguments {
+  const ForumArguments({
+    required this.category,
+    this.key,
+  });
+
+  final String category;
+
+  final _i8.Key? key;
+}
+
+extension NavigatorStateExtension on _i9.NavigationService {
   Future<dynamic> navigateToHome([
     int? routerId,
     bool preventDuplicates = true,
@@ -141,8 +167,8 @@ extension NavigatorStateExtension on _i8.NavigationService {
   }
 
   Future<dynamic> navigateToPostDetail({
-    required _i6.Post post,
-    _i7.Key? key,
+    required _i7.Post post,
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -151,6 +177,23 @@ extension NavigatorStateExtension on _i8.NavigationService {
   }) async {
     return navigateTo<dynamic>(Routes.postDetail,
         arguments: PostDetailArguments(post: post, key: key),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToForum({
+    required String category,
+    _i8.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.forum,
+        arguments: ForumArguments(category: category, key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

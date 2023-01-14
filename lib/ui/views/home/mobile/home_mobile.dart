@@ -6,6 +6,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:townsquare/core/app/app.router.dart';
 import 'package:townsquare/core/di/service_locator.dart';
 import 'package:townsquare/core/models/post.dart';
+import 'package:townsquare/ui/components/header_mobile.dart';
 import 'package:townsquare/ui/components/loader.dart';
 import 'package:townsquare/ui/components/logo.dart';
 import 'package:townsquare/ui/components/profile_picture.dart';
@@ -25,25 +26,7 @@ class HomeMobile extends StatelessWidget {
       viewModelBuilder: () => HomeViewModel(),
       builder: (context, model, child) => Scaffold(
         drawer: Container(),
-        appBar: AppBar(
-          iconTheme: const IconThemeData(color: Colors.black),
-          elevation: 0,
-          backgroundColor: AppColors.secondary.withOpacity(0.5),
-          centerTitle: true,
-          title: const Logo(),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.search),
-            ),
-            ProfilePicture(
-              onTap: () {
-                locator<NavigationService>().navigateTo(Routes.signIn);
-              },
-            ),
-            const SizedBox(width: 20),
-          ],
-        ),
+        appBar: headerMobile,
         body: model.posts == null
             ? const Center(
                 child: Loader(),
