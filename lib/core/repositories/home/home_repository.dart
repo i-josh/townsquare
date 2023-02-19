@@ -8,10 +8,11 @@ class HomeRepository implements IHomeRepository {
   final api = locator<ApiService>();
 
   @override
-  Future<ApiResponse> getPosts() async {
+  Future<ApiResponse> getPosts({Map<String, dynamic>? queryParams}) async {
     ApiResponse response = await api.call(
       method: HttpMethod.get,
       endpoint: "posts",
+      queryParams: queryParams,
     );
 
     return response;

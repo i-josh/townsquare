@@ -65,7 +65,7 @@ class _PostDetailWebState extends State<PostDetailWeb> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "@${widget.post.user![0].username}",
+                                      "@${widget.post.user!.username}",
                                       style: const TextStyle(
                                           fontSize: 10,
                                           fontWeight: FontWeight.bold),
@@ -243,7 +243,10 @@ class _PostDetailWebState extends State<PostDetailWeb> {
                                 itemCount: model.comments!.length,
                                 itemBuilder: (context, index) {
                                   Comment comment = model.comments![index];
-                                  return CommentRow(comment: comment);
+                                  return CommentRow(
+                                    comment: comment,
+                                    model: model,
+                                  );
                                 }),
                         const SizedBox(height: 50),
                       ],

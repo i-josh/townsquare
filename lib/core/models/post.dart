@@ -1,4 +1,5 @@
-import 'user.dart';
+import 'package:townsquare/core/models/user.dart';
+
 import 'like.dart';
 
 class Post {
@@ -8,11 +9,14 @@ class Post {
   String? category;
   String? createdBy;
   String? createdAt;
+  String? image;
   String? updatedAt;
-  int? iV;
   int? views;
-  List<User>? user;
+  int? iV;
+  bool? sponsored;
+  User? user;
   List<Like>? likes;
+  int? comments;
 
   Post(
       {this.sId,
@@ -20,12 +24,15 @@ class Post {
       this.body,
       this.category,
       this.createdBy,
+      this.image,
       this.createdAt,
       this.updatedAt,
-      this.iV,
       this.views,
+      this.iV,
+      this.sponsored,
       this.user,
-      this.likes});
+      this.likes,
+      this.comments});
 
   Post.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -35,20 +42,18 @@ class Post {
     createdBy = json['createdBy'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    iV = json['__v'];
+    image = json['image'];
     views = json['views'];
-    if (json['user'] != null) {
-      user = <User>[];
-      json['user'].forEach((v) {
-        user!.add(User.fromJson(v));
-      });
-    }
+    iV = json['__v'];
+    sponsored = json['sponsored'];
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
     if (json['likes'] != null) {
       likes = <Like>[];
       json['likes'].forEach((v) {
         likes!.add(Like.fromJson(v));
       });
     }
+    comments = json['comments'];
   }
 
   Map<String, dynamic> toJson() {
@@ -60,14 +65,17 @@ class Post {
     data['createdBy'] = createdBy;
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
-    data['__v'] = iV;
     data['views'] = views;
+    data['image'] = image;
+    data['__v'] = iV;
+    data['sponsored'] = sponsored;
     if (user != null) {
-      data['user'] = user!.map((v) => v.toJson()).toList();
+      data['user'] = user!.toJson();
     }
     if (likes != null) {
       data['likes'] = likes!.map((v) => v.toJson()).toList();
     }
+    data['comments'] = comments;
     return data;
   }
 }

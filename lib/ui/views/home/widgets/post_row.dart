@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:townsquare/core/app/app.logger.dart';
 import 'package:townsquare/core/app/app.router.dart';
 import 'package:townsquare/core/di/service_locator.dart';
 import 'package:townsquare/core/models/post.dart';
@@ -21,6 +22,7 @@ class PostRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        getLogger("PostRow").i(post.toJson());
         locator<NavigationService>().navigateTo(Routes.postDetail,
             arguments: PostDetailArguments(post: post));
       },
@@ -45,7 +47,7 @@ class PostRow extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "@${post.user![0].username}",
+                              "@${post.user!.username}",
                               style: const TextStyle(
                                   fontSize: 10, fontWeight: FontWeight.bold),
                             ),
@@ -107,11 +109,11 @@ class PostRow extends StatelessWidget {
                           icon: Icons.thumb_up_outlined,
                           value: post.likes!.length.toString(),
                           name: "likes"),
-                      // const SizedBox(width: 20),
-                      // _postAction(
-                      //     icon: Icons.messenger_outline,
-                      //     value: "100",
-                      //     name: "comments"),
+                      const SizedBox(width: 20),
+                      _postAction(
+                          icon: Icons.messenger_outline,
+                          value: post.comments.toString(),
+                          name: "comments"),
                       const SizedBox(width: 20),
                       _postAction(
                           icon: Icons.visibility,

@@ -1,7 +1,7 @@
 import '../../network/api_response.dart';
 
 abstract class IHomeRepository {
-  Future<ApiResponse> getPosts();
+  Future<ApiResponse> getPosts({Map<String, dynamic>? queryParams});
 
   Future<ApiResponse> getPostsByCategory(String category);
 

@@ -24,10 +24,13 @@ class HomeViewModel extends BaseViewModel {
   bool isReplyingToPost = false;
   final commentController = TextEditingController();
   final replyCommentController = TextEditingController();
-  bool commentIsReplying = false;
+
+  // bool commentIsReplying = false;
+  String replyingTo = "";
   bool commentReplyingLoading = false;
 
   List<Post>? posts;
+  List<Post>? sponsoredPosts;
   List<Comment>? comments;
   final log = getLogger("HomeViewModel");
 
@@ -40,6 +43,7 @@ class HomeViewModel extends BaseViewModel {
     // await locator<LocalStorage>().delete(key: LocalStorageDir.authToken);
     checkToken();
     getPosts();
+    getSponsoredPosts();
   }
 
   void checkToken() async {
@@ -64,8 +68,9 @@ class HomeViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void toggleShowCommentReplying() {
-    commentIsReplying = !commentIsReplying;
+  void toggleShowCommentReplying(Comment comment) {
+    // commentIsReplying = !commentIsReplying;
+    replyingTo = comment.sId!;
     notifyListeners();
   }
 
@@ -89,8 +94,30 @@ class HomeViewModel extends BaseViewModel {
     }
   }
 
+  void getSponsoredPosts() async {
+    try {
+      ApiResponse apiResponse =
+          await _repo.getPosts(queryParams: {"sponsored": "true"});
+      if (apiResponse.statusCode == 200) {
+        List<Post> newData = [];
+        List<dynamic> responseData = apiResponse.data["data"];
+        for (var element in responseData) {
+          newData.add(Post.fromJson(Map<String, dynamic>.from(element)));
+        }
+        sponsoredPosts = newData;
+        notifyListeners();
+      } else {
+        log.e(apiResponse.data);
+        snackBar.showSnackbar(message: apiResponse.data["message"]);
+      }
+    } catch (e) {
+      log.e(e);
+    }
+  }
+
   void addReply(Comment comment) async {
     log.i("something de happen o ${replyCommentController.text}");
+    log.i(comments?.length);
     if (replyCommentController.text.isEmpty) {
       return;
     }
@@ -107,13 +134,14 @@ class HomeViewModel extends BaseViewModel {
         });
 
         if (apiResponse.statusCode == 201) {
+          replyCommentController.text = "";
           getPostComments(comment.postId!);
         }
       } catch (e) {
         log.e(e);
       }
 
-      commentIsReplying = false;
+      replyingTo = "";
       commentReplyingLoading = false;
       notifyListeners();
     }

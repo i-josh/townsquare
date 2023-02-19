@@ -144,13 +144,21 @@ class HomeWeb extends StatelessWidget {
                                 color: Colors.black,
                                 fontSize: 16.sp),
                           ),
-                          ListView.builder(
-                            itemCount: 3,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return const SponsoredRow();
-                            },
-                          )
+                          model.sponsoredPosts == null
+                              ? Column(
+                                  children: const [
+                                    SizedBox(height: 50),
+                                    Loader(),
+                                  ],
+                                )
+                              : ListView.builder(
+                                  itemCount: model.sponsoredPosts!.length,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    Post post = model.sponsoredPosts![index];
+                                    return SponsoredRow(post: post);
+                                  },
+                                )
                         ],
                       ),
                     ),

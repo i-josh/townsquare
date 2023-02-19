@@ -57,7 +57,7 @@ class PostDetailMobile extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "@${post.user![0].username}",
+                                      "@${post.user!.username}",
                                       style: const TextStyle(
                                           fontSize: 10,
                                           fontWeight: FontWeight.bold),
@@ -235,7 +235,10 @@ class PostDetailMobile extends StatelessWidget {
                                 itemCount: model.comments!.length,
                                 itemBuilder: (context, index) {
                                   Comment comment = model.comments![index];
-                                  return CommentRow(comment: comment);
+                                  return CommentRow(
+                                    comment: comment,
+                                    model: model,
+                                  );
                                 })
                       ],
                     ),

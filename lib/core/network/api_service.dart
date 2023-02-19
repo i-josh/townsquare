@@ -48,6 +48,7 @@ class ApiService {
     required HttpMethod method,
     required String endpoint,
     Map<String, dynamic>? reqBody,
+    Map<String, dynamic>? queryParams,
     FormData? formData,
     bool protected = true,
     bool useFormData = false,
@@ -58,6 +59,7 @@ class ApiService {
         case HttpMethod.post:
           Response response = await _dio().post(
             endpoint,
+            queryParameters: queryParams,
             data: useFormData ? formData : reqBody,
             options: Options(
                 headers: !protected
@@ -72,6 +74,7 @@ class ApiService {
         case HttpMethod.get:
           Response response = await _dio().get(
             endpoint,
+            queryParameters: queryParams,
             options: Options(
                 headers: !protected
                     ? {}
@@ -81,6 +84,7 @@ class ApiService {
         case HttpMethod.patch:
           Response response = await _dio().patch(
             endpoint,
+            queryParameters: queryParams,
             data: useFormData ? formData : reqBody,
             options: Options(
                 headers: !protected
@@ -91,6 +95,7 @@ class ApiService {
         case HttpMethod.put:
           Response response = await _dio().put(
             endpoint,
+            queryParameters: queryParams,
             data: useFormData ? formData : reqBody,
             options: Options(
                 headers: !protected
@@ -101,6 +106,7 @@ class ApiService {
         case HttpMethod.delete:
           Response response = await _dio().delete(
             endpoint,
+            queryParameters: queryParams,
             data: useFormData ? formData : reqBody,
             options: Options(
                 headers: !protected
